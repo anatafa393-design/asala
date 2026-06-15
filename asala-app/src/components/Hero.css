@@ -1,0 +1,299 @@
+/* ══════════════════════════════════════════════════════════
+   Hero Section
+══════════════════════════════════════════════════════════ */
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background-color: #0a0a0a;
+}
+
+/* Solid dark bg */
+.hero-bg-solid {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 20% 50%, rgba(212,175,55,0.06) 0%, transparent 70%),
+              #0a0a0a;
+  z-index: 0;
+}
+
+/* Bottom fade so next section blends in */
+.hero-bottom-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, #0a0a0a);
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ── Split layout ─────────────────────────────────────── */
+.hero-layout {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 60px;
+  display: grid;
+  /* RTL: tickers are visual-right → first column; text visual-left → second */
+  grid-template-columns: 1fr 1.1fr;
+  align-items: center;
+  gap: 60px;
+  min-height: 100vh;
+  direction: ltr; /* Force LTR so col1=left, col2=right visually */
+}
+
+/* ── Text column (visual left) ────────────────────────── */
+.hero-text-col {
+  direction: rtl; /* Re-apply RTL for text rendering */
+  text-align: right;
+}
+
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-gold);
+  border: 1px solid rgba(212,175,55,0.3);
+  padding: 6px 16px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+
+.hero-title {
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  margin-bottom: 40px;
+  line-height: 1.75;
+}
+
+.hero-cta-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  margin-bottom: 50px;
+}
+
+.btn-outline {
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid rgba(212,175,55,0.5);
+  color: var(--accent-gold);
+  font-family: var(--font-family);
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(212,175,55,0.08);
+  border-color: var(--accent-gold);
+}
+
+/* Trust badges */
+.hero-badges {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  justify-content: flex-end;
+}
+
+.hero-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.hero-badge span:first-child {
+  font-size: 1.6rem;
+  font-weight: 800;
+}
+
+.hero-badge span:last-child {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.hero-badge-divider {
+  width: 1px;
+  height: 36px;
+  background: rgba(255,255,255,0.12);
+}
+
+/* ══════════════════════════════════════════════════════════
+   Vertical Tickers Column (visual right)
+══════════════════════════════════════════════════════════ */
+.hero-tickers-col {
+  display: flex;
+  gap: 16px;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Fade masks top & bottom of the tickers column */
+.hero-tickers-col::before,
+.hero-tickers-col::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 180px;
+  z-index: 4;
+  pointer-events: none;
+}
+.hero-tickers-col::before {
+  top: 0;
+  background: linear-gradient(to bottom, #0a0a0a 0%, transparent 100%);
+}
+.hero-tickers-col::after {
+  bottom: 0;
+  background: linear-gradient(to top, #0a0a0a 0%, transparent 100%);
+}
+
+/* Each strip */
+.vticker-strip {
+  flex: 1;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+/* Scrolling track */
+.vticker-track {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ── Keyframe: scroll UP ── */
+@keyframes tickerUp {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-33.333%); }
+}
+
+/* ── Keyframe: scroll DOWN ── */
+@keyframes tickerDown {
+  0%   { transform: translateY(-33.333%); }
+  100% { transform: translateY(0); }
+}
+
+.vticker-up {
+  animation: tickerUp linear infinite;
+}
+
+.vticker-down {
+  animation: tickerDown linear infinite;
+}
+
+/* Individual image card */
+.vticker-item {
+  flex-shrink: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(212,175,55,0.08);
+}
+
+.vticker-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.vticker-item:hover img {
+  transform: scale(1.05);
+}
+
+/* ── Responsive ──────────────────────────────────────── */
+@media (max-width: 991px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    padding: 120px 24px 60px;
+    min-height: auto;
+    gap: 40px;
+  }
+
+  .hero-tickers-col {
+    height: 320px;
+  }
+
+  .vticker-item img {
+    height: 150px;
+  }
+
+  .hero-text-col {
+    text-align: center;
+    direction: rtl;
+  }
+
+  .hero-cta-row,
+  .hero-badges {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-tickers-col {
+    display: none; /* إخفاء التيكر بالكامل على الهواتف لتسريع التصفح وتحسين الشكل */
+  }
+  
+  .hero-layout {
+    grid-template-columns: 1fr;
+    padding: 100px 16px 40px;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+    line-height: 1.3;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    margin-bottom: 24px;
+  }
+
+  .hero-cta-row {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-cta-row button,
+  .hero-cta-row .magnetic-btn {
+    width: 100% !important;
+  }
+
+  .hero-badges {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .hero-badge span:first-child {
+    font-size: 1.3rem;
+  }
+}

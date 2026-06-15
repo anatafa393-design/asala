@@ -1,0 +1,58 @@
+.stats-section {
+  position: relative;
+  background: url('/images/ديكورات_خارجيه/1.webp') center/cover fixed no-repeat;
+  padding: 100px 20px;
+  text-align: center;
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.stats-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-number {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  direction: ltr; /* Ensure numbers format correctly with '+' suffix */
+}
+
+.stat-label {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .stats-container {
+    gap: 50px;
+  }
+  .stat-number {
+    font-size: 3.5rem;
+  }
+}
