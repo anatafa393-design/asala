@@ -67,10 +67,10 @@ const Hero = () => {
 
         {/* Text column */}
         <div className="hero-text-col" ref={textRef}>
-          <p className="hero-eyebrow">شركة أصالة للديكور والمقاولات</p>
-          <h1 className="hero-title">
-            تصميم داخلي<br />وخارجي{' '}
-            <span className="gold-text">فاخر</span>
+          <p className="hero-eyebrow">شركة أصالة للديكور والمقاولات العامة</p>
+          <h1 className="hero-title" style={{ fontSize: "clamp(1.5rem, 4vw, 3.5rem)" }}>
+            ( تصميم - توريد - تنفيذ - تسليم )<br />
+            <span className="gold-text">تجاري - سكني</span>
           </h1>
           <p className="hero-subtitle">
             نحوّل المساحات من خلال تصاميم مبتكرة<br />وتنفيذ احترافي من الألف للياء.
