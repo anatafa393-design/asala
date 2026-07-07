@@ -25,7 +25,7 @@ const Footer = () => {
               <Mail size={20} className="gold-text" /> 
               <a href="mailto:asala.company2020@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>asala.company2020@gmail.com</a>
             </li>
-            <li><MapPin size={20} className="gold-text" /> الرياض، المملكة العربية السعودية</li>
+            <li><MapPin size={20} className="gold-text" /> جدة، المملكة العربية السعودية</li>
           </ul>
         </div>
 
