@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import MagneticButton from './MagneticButton';
@@ -85,41 +86,44 @@ const ProjectDetail = ({ project, onBack }) => {
         </motion.div>
       </div>
 
-      {/* Lightbox Modal */}
-      <AnimatePresence>
-        {lightboxIndex !== null && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="lightbox-overlay"
-            onClick={() => setLightboxIndex(null)}
-          >
-            <button className="lightbox-nav-btn prev" onClick={(e) => { e.stopPropagation(); handlePrev(); }}>
-              <ChevronRight size={30} />
-            </button>
-
+      {/* Lightbox Modal rendered via React Portal directly to document.body to bypass CSS transform context */}
+      {createPortal(
+        <AnimatePresence>
+          {lightboxIndex !== null && (
             <motion.div 
-              key={lightboxIndex}
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="lightbox-content"
-              onClick={(e) => e.stopPropagation()}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="lightbox-overlay"
+              onClick={() => setLightboxIndex(null)}
             >
-              <img src={project.gallery[lightboxIndex]} alt={`${project.title} - ${lightboxIndex + 1}`} />
-              <div className="lightbox-caption">{lightboxIndex + 1} / {project.gallery.length}</div>
+              <button className="lightbox-nav-btn prev" onClick={(e) => { e.stopPropagation(); handlePrev(); }}>
+                <ChevronRight size={30} />
+              </button>
+
+              <motion.div 
+                key={lightboxIndex}
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="lightbox-content"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img src={project.gallery[lightboxIndex]} alt={`${project.title} - ${lightboxIndex + 1}`} />
+                <div className="lightbox-caption">{lightboxIndex + 1} / {project.gallery.length}</div>
+              </motion.div>
+
+              <button className="lightbox-nav-btn next" onClick={(e) => { e.stopPropagation(); handleNext(); }}>
+                <ChevronLeft size={30} />
+              </button>
+
+              <button className="lightbox-close" onClick={() => setLightboxIndex(null)}>✕</button>
             </motion.div>
-
-            <button className="lightbox-nav-btn next" onClick={(e) => { e.stopPropagation(); handleNext(); }}>
-              <ChevronLeft size={30} />
-            </button>
-
-            <button className="lightbox-close" onClick={() => setLightboxIndex(null)}>✕</button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </motion.div>
   );
 };
