@@ -1,23 +1,29 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import MagneticButton from './MagneticButton';
 import './ProjectDetail.css';
 
 const ProjectDetail = ({ project, onBack }) => {
+  const overlayRef = useRef(null);
+
   useEffect(() => {
-    // Scroll to top instantly when opening the project to prepare for animation
-    window.scrollTo({ top: 0, behavior: 'instant' });
-  }, []);
+    // Scroll the fixed overlay container to top instantly on mount
+    if (overlayRef.current) {
+      overlayRef.current.scrollTop = 0;
+    }
+  }, [project]);
 
   return (
     <motion.div 
+      ref={overlayRef}
       className="project-detail-page"
-      initial={{ opacity: 0, rotateY: 85, x: '10%' }}
-      animate={{ opacity: 1, rotateY: 0, x: 0 }}
-      exit={{ opacity: 0, rotateY: 85, x: '10%' }}
-      transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-      style={{ transformOrigin: 'right center', perspective: 2000 }}
+      data-lenis-prevent
+      initial={{ opacity: 0, scale: 1.08, rotateX: -8, y: 50 }}
+      animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
+      exit={{ opacity: 0, scale: 1.08, rotateX: -8, y: 50 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      style={{ transformOrigin: 'center center', perspective: 1200 }}
     >
       {/* Shared Element Header Image */}
       <div className="project-detail-hero">

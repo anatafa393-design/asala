@@ -20,7 +20,6 @@ const ProjectDetail = lazy(() => import('./components/ProjectDetail'));
 
 function App() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [scrollPos, setScrollPos] = useState(0);
 
   useEffect(() => {
     // Lenis smooth scroll configuration
@@ -46,50 +45,60 @@ function App() {
   }, []);
 
   const handleProjectSelect = (project) => {
-    setScrollPos(window.scrollY);
     setSelectedProject(project);
   };
 
   const handleBack = () => {
     setSelectedProject(null);
-    // Restore scroll after a brief delay to allow DOM to render
-    setTimeout(() => {
-      window.scrollTo({ top: scrollPos, behavior: 'instant' });
-    }, 50);
   };
 
   return (
     <>
       <Navbar onHomeRedirect={handleBack} />
       
-      <AnimatePresence mode="wait">
-        {selectedProject ? (
-          <Suspense fallback={<div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c4a259' }}>جاري التحميل...</div>}>
+      {/* Main Home Page wrapper - stays mounted to keep scroll position & performance */}
+      <motion.div 
+        key="home-page"
+        animate={selectedProject ? { 
+          scale: 0.95, 
+          opacity: 0.35, 
+          rotateX: 4,
+          z: -100
+        } : { 
+          scale: 1, 
+          opacity: 1, 
+          rotateX: 0,
+          z: 0
+        }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        style={{ 
+          transformOrigin: 'top center', 
+          perspective: 1200,
+          pointerEvents: selectedProject ? 'none' : 'auto'
+        }}
+      >
+        <Hero />
+        <About />
+        <Stats />
+        <Process />
+        <Marquee />
+        <Services onProjectSelect={handleProjectSelect} />
+        <Portfolio onProjectSelect={handleProjectSelect} />
+        <Testimonials />
+        <ContactForm />
+        <Footer />
+      </motion.div>
+
+      {/* Project Details mounted on top as a fixed overlay */}
+      <AnimatePresence>
+        {selectedProject && (
+          <Suspense fallback={null}>
             <ProjectDetail 
               key="project-detail"
               project={selectedProject} 
               onBack={handleBack} 
             />
           </Suspense>
-        ) : (
-          <motion.div 
-            key="home-page"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Hero />
-            <About />
-            <Stats />
-            <Process />
-            <Marquee />
-            <Services onProjectSelect={handleProjectSelect} />
-            <Portfolio onProjectSelect={handleProjectSelect} />
-            <Testimonials />
-            <ContactForm />
-            <Footer />
-          </motion.div>
         )}
       </AnimatePresence>
 
