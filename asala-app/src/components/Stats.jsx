@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Stats.css';
@@ -6,28 +6,35 @@ import './Stats.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const StatItem = ({ end, label, suffix = '+' }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
+  const numberRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     let obj = { val: 0 };
     const tl = gsap.to(obj, {
       val: end,
-      duration: 2.5,
+      duration: 2,
       ease: 'power2.out',
-      onUpdate: () => setCount(Math.floor(obj.val)),
       scrollTrigger: {
-        trigger: ref.current,
+        trigger: containerRef.current,
         start: 'top 90%',
         once: true,
+      },
+      onUpdate: () => {
+        if (numberRef.current) {
+          numberRef.current.innerText = Math.floor(obj.val);
+        }
       }
     });
     return () => tl.kill();
   }, [end]);
 
   return (
-    <div className="stat-item" ref={ref}>
-      <div className="stat-number"><span className="gold-text">{count}</span>{suffix}</div>
+    <div className="stat-item" ref={containerRef}>
+      <div className="stat-number">
+        <span className="gold-text" ref={numberRef}>0</span>
+        {suffix}
+      </div>
       <div className="stat-label">{label}</div>
     </div>
   );

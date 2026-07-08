@@ -37,7 +37,7 @@ const VerticalTicker = ({ images, direction = 'up', speed = 30 }) => {
       >
         {items.map((src, i) => (
           <div key={i} className="vticker-item">
-            <img src={src} alt={`project ${i}`} loading="lazy" />
+            <img src={src} alt="ديكور وتصميم داخلي فاخر - شركة أصالة" loading="lazy" />
           </div>
         ))}
       </div>
@@ -68,7 +68,7 @@ const Hero = () => {
         {/* Text column */}
         <div className="hero-text-col" ref={textRef}>
           <p className="hero-eyebrow">شركة أصالة للديكور والمقاولات العامة</p>
-          <h1 className="hero-title" style={{ fontSize: "clamp(1.5rem, 4vw, 3.5rem)" }}>
+          <h1 className="hero-title">
             ( تصميم - توريد - تنفيذ - تسليم )<br />
             <span className="gold-text">تجاري - سكني</span>
           </h1>

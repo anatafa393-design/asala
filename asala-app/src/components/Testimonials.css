@@ -5,57 +5,99 @@
 
 .testimonials-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 20px;
 }
 
 .testimonial-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(212, 175, 55, 0.1);
   padding: 40px 30px;
-  border-radius: 8px;
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  border-radius: 12px;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease, box-shadow 0.4s ease;
   position: relative;
 }
 
 .testimonial-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
   border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 12px 30px rgba(212, 175, 55, 0.05);
 }
 
 .quote-icon {
   color: var(--accent-gold);
-  opacity: 0.15;
+  opacity: 0.08;
   position: absolute;
   top: 30px;
-  left: 30px; /* Left for RTL layout */
+  right: 30px;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.star-icon {
+  color: #ffc107;
+  fill: #ffc107;
 }
 
 .testimonial-text {
   color: var(--text-secondary);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   line-height: 1.8;
   margin-bottom: 30px;
-  font-style: italic;
   position: relative;
   z-index: 1;
+  text-align: right;
 }
 
-.testimonial-author {
+.testimonial-author-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   padding-top: 20px;
+  direction: rtl;
+}
+
+.testimonial-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(212, 175, 55, 0.1);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: var(--accent-gold);
+  font-size: 1.1rem;
+}
+
+.testimonial-author-info {
+  text-align: right;
 }
 
 .author-name {
   color: var(--text-primary);
-  font-size: 1.1rem;
-  margin-bottom: 5px;
+  font-size: 1.05rem;
+  margin-bottom: 3px;
   font-weight: 600;
 }
 
 .author-role {
   color: var(--accent-gold);
-  font-size: 0.95rem;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
 }

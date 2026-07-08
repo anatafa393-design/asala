@@ -1,15 +1,20 @@
 import { useEffect, useState, lazy, Suspense } from 'react';
 import Lenis from 'lenis';
 import { AnimatePresence, motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Stats from './components/Stats';
+import Process from './components/Process';
 import Marquee from './components/Marquee';
 import Services from './components/Services';
 import Portfolio from './components/Portfolio';
 import Testimonials from './components/Testimonials';
+import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
+import FloatingWhatsapp from './components/FloatingWhatsapp';
 
 const ProjectDetail = lazy(() => import('./components/ProjectDetail'));
 
@@ -25,14 +30,17 @@ function App() {
       smooth: true,
     });
 
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+    lenis.on('scroll', ScrollTrigger.update);
 
-    requestAnimationFrame(raf);
+    const updateRaf = (time) => {
+      lenis.raf(time * 1000);
+    };
+
+    gsap.ticker.add(updateRaf);
+    gsap.ticker.lagSmoothing(0);
 
     return () => {
+      gsap.ticker.remove(updateRaf);
       lenis.destroy();
     };
   }, []);
@@ -73,15 +81,18 @@ function App() {
             <Hero />
             <About />
             <Stats />
+            <Process />
             <Marquee />
             <Services onProjectSelect={handleProjectSelect} />
             <Portfolio onProjectSelect={handleProjectSelect} />
             <Testimonials />
+            <ContactForm />
           </motion.div>
         )}
       </AnimatePresence>
 
       <Footer />
+      <FloatingWhatsapp />
     </>
   );
 }

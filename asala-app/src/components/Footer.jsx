@@ -1,4 +1,4 @@
-import { Phone, Mail, MessageCircle, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 import './Footer.css';
 
 const Footer = () => {
@@ -7,10 +7,10 @@ const Footer = () => {
       <div className="footer-content">
         <div className="footer-section">
           <a href="#hero">
-            <img src="/logo.png" alt="أصالة للتصميم" className="footer-logo" />
+            <img src="/logo.png" alt="أصالة للديكور والمقاولات العامة" className="footer-logo" />
           </a>
           <p className="footer-desc">
-            لنبنِ مساحة أحلامك معاً. نحن نقدم حلولاً فاخرة وعصرية للتصميم الداخلي والخارجي مصممة خصيصاً لتناسب ذوقك الفريد.
+            نحن نقدم حلولاً متكاملة وهندسية فاخرة في الديكور الداخلي والمقاولات العامة لنهيئ مساحاتكم السكنية والتجارية بأعلى معايير الجودة والدقة.
           </p>
         </div>
         
@@ -25,7 +25,12 @@ const Footer = () => {
               <Mail size={20} className="gold-text" /> 
               <a href="mailto:asala.company2020@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>asala.company2020@gmail.com</a>
             </li>
-            <li><MapPin size={20} className="gold-text" /> جدة، المملكة العربية السعودية</li>
+            <li>
+              <MapPin size={20} className="gold-text" /> 
+              <a href="https://maps.google.com/?q=Jeddah,Saudi+Arabia" target="_blank" rel="noreferrer" style={{ color: 'inherit', textDecoration: 'underline' }}>
+                جدة، المملكة العربية السعودية
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -51,7 +56,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>&copy; {new Date().getFullYear()} أصالة للتصميم والديكور. جميع الحقوق محفوظة.</p>
+        <p>&copy; {new Date().getFullYear()} شركة أصالة للديكور والمقاولات العامة. جميع الحقوق محفوظة.</p>
       </div>
     </footer>
   );

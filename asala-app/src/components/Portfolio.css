@@ -1,11 +1,58 @@
 .portfolio-section {
   background-color: #080808;
+  padding: 100px 20px;
+}
+
+/* Category Filter Tabs */
+.portfolio-filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  font-family: var(--font-family);
+  border-radius: 4px;
+}
+
+.filter-btn:hover {
+  color: #fff;
+}
+
+.filter-btn.active {
+  color: var(--accent-gold);
+}
+
+.filter-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--accent-gold);
+  border-radius: 2px;
+}
+
+.filter-btn:focus-visible {
+  outline: 2px solid var(--accent-gold);
+  outline-offset: 4px;
 }
 
 .portfolio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 20px;
+  gap: 24px;
   max-width: 1400px;
   margin: 0 auto;
 }
@@ -24,6 +71,13 @@
   overflow: hidden;
   cursor: pointer;
   aspect-ratio: 4/3;
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease;
+}
+
+.portfolio-item:focus-visible {
+  outline: 3px solid var(--accent-gold);
+  outline-offset: 4px;
 }
 
 .portfolio-cover {
@@ -39,7 +93,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,7 +103,7 @@
 }
 
 .portfolio-item:hover .portfolio-cover {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .portfolio-item:hover .portfolio-overlay {
@@ -57,18 +111,19 @@
 }
 
 .portfolio-overlay h3 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   color: var(--accent-gold);
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   text-align: center;
 }
 
 .portfolio-overlay span {
-  font-size: 1rem;
+  font-size: 0.95rem;
   text-transform: uppercase;
   letter-spacing: 2px;
   border-bottom: 1px solid var(--accent-gold);
   padding-bottom: 4px;
+  color: #fff;
 }
 
 /* Modal Gallery */

@@ -7,6 +7,12 @@
   border-bottom: 1px solid rgba(212, 175, 55, 0.2);
 }
 
+@media (hover: none) {
+  .stats-section {
+    background-attachment: scroll;
+  }
+}
+
 .stats-overlay {
   position: absolute;
   top: 0;
