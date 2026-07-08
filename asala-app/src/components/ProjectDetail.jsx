@@ -13,10 +13,11 @@ const ProjectDetail = ({ project, onBack }) => {
   return (
     <motion.div 
       className="project-detail-page"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ opacity: 0, scale: 1.08, rotateX: -8, y: 50 }}
+      animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
+      exit={{ opacity: 0, scale: 1.08, rotateX: -8, y: 50 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      style={{ transformOrigin: 'center center', perspective: 1200 }}
     >
       {/* Shared Element Header Image */}
       <div className="project-detail-hero">
