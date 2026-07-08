@@ -1,14 +1,21 @@
 /* ── Section Layout ──────────────────────────────────────── */
 .about-section {
   background-color: var(--bg-color);
-  padding: 120px 40px;
+  padding: 100px 40px;
 }
 
 .about-inner {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 80px; /* spacing between zones */
+}
+
+/* ── Zone 1: Hero Grid (Text & Collage) ─────────────────── */
+.about-hero-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 80px;
   align-items: center;
 }
@@ -31,23 +38,22 @@
   position: relative;
   overflow: hidden;
   border-radius: 14px;
-  border: 1px solid rgba(212, 175, 55, 0.12);
-  opacity: 0; /* Start hidden, GSAP will reveal */
+  border: 1px solid rgba(212, 175, 55, 0.15);
 }
 
 .about-img-main {
-  height: 340px;
+  height: 380px;
 }
 
 .about-img-sm {
-  height: 200px;
+  height: 220px;
 }
 
 .about-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
+  transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .about-img-wrapper:hover .about-img {
@@ -72,7 +78,6 @@
   position: absolute;
   top: -20px;
   right: -20px;
-  left: auto;
   width: 110px;
   height: 110px;
   border-radius: 50%;
@@ -103,72 +108,208 @@
 /* ── Text Column ─────────────────────────────────────────── */
 .about-text-col {
   text-align: right;
-  opacity: 0; /* Start hidden, GSAP will reveal */
 }
 
 .about-eyebrow {
-  color: var(--accent-gold);
+  color: #d4af37;
   font-size: 0.9rem;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
+}
+
+.about-text-highlight {
+  color: #d4af37;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 24px;
 }
 
 .about-text {
-  color: var(--text-secondary);
-  font-size: 1.1rem;
-  line-height: 1.9;
+  color: #cccccc;
+  font-size: 1.05rem;
+  line-height: 1.8;
   margin-bottom: 20px;
 }
 
-/* ── Values List ─────────────────────────────────────────── */
-.about-values-list {
-  list-style: none;
-  padding: 0;
-  margin: 30px 0 0;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+/* ── Zone 2: Vision & Mission Cards ───────────────────── */
+.about-vision-mission-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
 }
 
-.about-value-item {
+.about-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  border-radius: 16px;
+  padding: 35px;
+  text-align: right;
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.08);
+}
+
+.about-card-icon {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+}
+
+.about-card h3 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.about-card p {
+  color: #b3b3b3;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Zone 3: Services Grid ───────────────────────────────── */
+.about-services-section {
+  text-align: right;
+}
+
+.about-services-title {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.about-services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.about-service-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 20px;
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 1rem;
-  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.about-service-card:hover {
+  background: rgba(212, 175, 55, 0.04);
+  border-color: rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+}
+
+.about-service-card span {
+  font-size: 0.95rem;
+  color: #e0e0e0;
   font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ── Zone 4: Quote Banner ────────────────────────────────── */
+.about-quote-banner {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.06) 0%, rgba(212, 175, 55, 0.01) 100%);
+  border: 1px dashed rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 40px 60px;
+  position: relative;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-quote-text {
+  font-size: 1.25rem;
+  line-height: 1.9;
+  color: #e6e6e6;
+  font-weight: 600;
+  font-style: italic;
+  margin: 0;
+}
+
+.quote-mark {
+  font-size: 4rem;
+  color: rgba(212, 175, 55, 0.15);
+  position: absolute;
+  line-height: 1;
+}
+
+.quote-mark:first-of-type {
+  top: 10px;
+  right: 20px;
+}
+
+.quote-mark:last-of-type {
+  bottom: -30px;
+  left: 20px;
 }
 
 /* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .about-services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
-  .about-inner {
+  .about-hero-grid {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 50px;
   }
 
   .about-text-col {
-    order: -1; /* Text first on mobile */
+    order: -1;
+  }
+
+  .about-vision-mission-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
   }
 
   .about-badge {
     top: -15px;
     right: -10px;
-    left: auto;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .about-section {
     padding: 80px 20px;
   }
 
+  .about-quote-banner {
+    padding: 30px 20px;
+  }
+  
+  .about-quote-text {
+    font-size: 1.1rem;
+  }
+
+  .about-services-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
   .about-img-main {
-    height: 250px;
+    height: 280px;
   }
 
   .about-img-sm {
-    height: 150px;
+    height: 160px;
   }
 }
