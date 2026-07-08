@@ -6,8 +6,8 @@ import './ProjectDetail.css';
 
 const ProjectDetail = ({ project, onBack }) => {
   useEffect(() => {
-    // Scroll to top when opening the project
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll to top instantly when opening the project to prepare for animation
+    window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
   return (

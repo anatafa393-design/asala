@@ -62,43 +62,34 @@ function App() {
     <>
       <Navbar onHomeRedirect={handleBack} />
       
-      {/* Main Home Page wrapper - stays mounted to keep scroll position & performance */}
-      <motion.div 
-        key="home-page"
-        animate={selectedProject ? { 
-          scale: 0.98, 
-          opacity: 0.4
-        } : { 
-          scale: 1, 
-          opacity: 1
-        }}
-        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        style={{ 
-          pointerEvents: selectedProject ? 'none' : 'auto'
-        }}
-      >
-        <Hero />
-        <About />
-        <Stats />
-        <Process />
-        <Marquee />
-        <Services onProjectSelect={handleProjectSelect} />
-        <Portfolio onProjectSelect={handleProjectSelect} />
-        <Testimonials />
-        <ContactForm />
-        <Footer />
-      </motion.div>
-
-      {/* Project Details mounted on top as a fixed overlay */}
-      <AnimatePresence>
-        {selectedProject && (
-          <Suspense fallback={null}>
+      <AnimatePresence mode="wait">
+        {selectedProject ? (
+          <Suspense fallback={<div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#c4a259' }}>جاري التحميل...</div>}>
             <ProjectDetail 
               key="project-detail"
               project={selectedProject} 
               onBack={handleBack} 
             />
           </Suspense>
+        ) : (
+          <motion.div 
+            key="home-page"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.4 }}
+          >
+            <Hero />
+            <About />
+            <Stats />
+            <Process />
+            <Marquee />
+            <Services onProjectSelect={handleProjectSelect} />
+            <Portfolio onProjectSelect={handleProjectSelect} />
+            <Testimonials />
+            <ContactForm />
+            <Footer />
+          </motion.div>
         )}
       </AnimatePresence>
 
