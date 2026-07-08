@@ -138,7 +138,7 @@ const About = () => {
 
         {/* ── ZONE 3: Services Grid (4 Columns) ── */}
         <div className="about-services-section">
-          <h3 className="about-services-title">خدماتنا</h3>
+          <h3 className="about-services-title">تشمل أعمالنا</h3>
           <div className="about-services-grid">
             {values.map((v, i) => (
               <div key={i} className="about-service-card">
