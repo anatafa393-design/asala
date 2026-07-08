@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { PageFlip } from 'page-flip';
 import MagneticButton from './MagneticButton';
 import './ProjectDetail.css';
 
@@ -104,42 +105,89 @@ const ParallaxSlider = ({ gallery, title }) => {
   );
 };
 
-// ── 3. 3D REALISTIC FLIPBOOK ──────────────────────────────────────────
+// ── 3. 3D REALISTIC FLIPBOOK (USING STPAGEFLIP) ──────────────────────
 const RealisticFlipbook = ({ gallery, title }) => {
+  const bookRef = useRef(null);
+  const pageFlipRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const totalPages = gallery.length;
+  const [totalPages, setTotalPages] = useState(0);
+
+  useEffect(() => {
+    let pageFlipInstance = null;
+
+    if (bookRef.current) {
+      // Initialize the realistic 3D book mockup
+      pageFlipInstance = new PageFlip(bookRef.current, {
+        width: 450, // Base page width
+        height: 600, // Base page height
+        size: "stretch",
+        minWidth: 290,
+        maxWidth: 900,
+        minHeight: 380,
+        maxHeight: 1200,
+        maxShadowOpacity: 0.6,
+        showCover: false,
+        drawShadow: true,
+        usePortrait: true, // Switch to single page on small mobile screens
+        flippingTime: 800,
+        swipeDistance: 30
+      });
+
+      pageFlipRef.current = pageFlipInstance;
+
+      const pages = bookRef.current.querySelectorAll('.flipbook-page-item');
+      pageFlipInstance.loadFromHTML(pages);
+
+      setTotalPages(pageFlipInstance.getPageCount());
+
+      // Sync page state on flip
+      pageFlipInstance.on('flip', (e) => {
+        setCurrentPage(e.data);
+      });
+    }
+
+    return () => {
+      if (pageFlipInstance) {
+        try {
+          pageFlipInstance.destroy();
+        } catch (err) {
+          console.warn("Clean up PageFlip warning:", err);
+        }
+      }
+    };
+  }, [gallery]);
 
   const handleNext = () => {
-    if (currentPage < totalPages - 1) setCurrentPage(prev => prev + 1);
+    pageFlipRef.current?.flipNext();
   };
 
   const handlePrev = () => {
-    if (currentPage > 0) setCurrentPage(prev => prev - 1);
+    pageFlipRef.current?.flipPrev();
   };
 
   return (
     <div className="flipbook-wrapper">
       <div className="flipbook-container-outer">
-        <div className="flipbook-container">
-          {gallery.map((imgSrc, idx) => {
-            let zIndex = totalPages - idx;
-            let isFlipped = idx < currentPage;
-            let isActive = idx === currentPage;
-
-            return (
-              <div 
-                key={idx} 
-                className={`flipbook-page ${isFlipped ? 'flipped' : ''} ${isActive ? 'active' : ''}`}
-                style={{ zIndex: isFlipped ? idx : zIndex }}
-              >
-                <div className="flipbook-page-front">
+        {/* Real physical book mockup wrapper */}
+        <div className="book-mockup-frame">
+          {/* Central binding spine */}
+          <div className="book-mockup-spine"></div>
+          
+          <div ref={bookRef} className="flipbook-js-container">
+            {gallery.map((imgSrc, idx) => (
+              <div key={idx} className="flipbook-page-item">
+                <div className="flipbook-page-content">
                   <img src={imgSrc} alt={`${title} - صفحة ${idx + 1}`} />
+                  
+                  {/* Subtle 3D inner binding shadow */}
                   <div className="page-spine-gradient"></div>
+                  
+                  {/* Page number badge */}
                   <div className="page-number-pill">{idx + 1}</div>
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -155,7 +203,7 @@ const RealisticFlipbook = ({ gallery, title }) => {
         <button 
           className="flip-ctrl-btn" 
           onClick={handleNext} 
-          disabled={currentPage === totalPages - 1}
+          disabled={currentPage >= totalPages - 1}
         >
           الصفحة التالية <ChevronLeft size={20} />
         </button>
