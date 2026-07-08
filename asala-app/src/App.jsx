@@ -66,20 +66,14 @@ function App() {
       <motion.div 
         key="home-page"
         animate={selectedProject ? { 
-          scale: 0.95, 
-          opacity: 0.35, 
-          rotateX: 4,
-          z: -100
+          scale: 0.98, 
+          opacity: 0.4
         } : { 
           scale: 1, 
-          opacity: 1, 
-          rotateX: 0,
-          z: 0
+          opacity: 1
         }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
         style={{ 
-          transformOrigin: 'top center', 
-          perspective: 1200,
           pointerEvents: selectedProject ? 'none' : 'auto'
         }}
       >
