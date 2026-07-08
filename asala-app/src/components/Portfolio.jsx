@@ -23,16 +23,8 @@ const categoryMap = {
   ديكورات_خارجيه: 'exterior'
 };
 
-const filterTabs = [
-  { id: 'all', label: 'الكل' },
-  { id: 'residential', label: 'تصميم سكني' },
-  { id: 'commercial', label: 'تصميم تجاري' },
-  { id: 'exterior', label: 'تصميم خارجي' }
-];
-
 const Portfolio = ({ onProjectSelect }) => {
   const gridRef = useRef(null);
-  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     const items = gsap.utils.toArray('.portfolio-item');
@@ -51,36 +43,13 @@ const Portfolio = ({ onProjectSelect }) => {
         }
       );
     }
-  }, [filter]); // Re-run animation when filter changes
+  }, []);
 
-  const filteredProjects = projects.filter(proj => {
-    if (filter === 'all') return true;
-    return categoryMap[proj.id] === filter;
-  });
+  const filteredProjects = projects;
 
   return (
     <section id="portfolio" className="section portfolio-section">
       <h2 className="section-title">معرض <span className="gold-text">أعمالنا</span></h2>
-      
-      {/* Category Filter Tabs */}
-      <div className="portfolio-filters">
-        {filterTabs.map((tab) => (
-          <button
-            key={tab.id}
-            className={`filter-btn ${filter === tab.id ? 'active' : ''}`}
-            onClick={() => setFilter(tab.id)}
-          >
-            {tab.label}
-            {filter === tab.id && (
-              <motion.span 
-                layoutId="active-filter-indicator" 
-                className="filter-indicator"
-                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-              />
-            )}
-          </button>
-        ))}
-      </div>
 
       <div className="portfolio-grid" ref={gridRef}>
         <AnimatePresence mode="popLayout">
